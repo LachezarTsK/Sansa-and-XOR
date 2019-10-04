@@ -46,10 +46,9 @@ public class SolutionSet {
 
     for (int i = 1; i <= numberOfElements; i++) {
     /**
-    * The total occurrence of an element in all contiguous subarrays
-    * is determined by the expression:
+    * The total occurrence of an element in all contiguous subarrays is determined by the expression:
     * (i + (numberOfElements - i) * i)
-    * where 'i' is actual position(not index) in the inputArray.
+    * where 'i' is actual position (not index) in the inputArray.
     */
       int totalOccurrenceOfElement = i + (numberOfElements - i) * i;
 
