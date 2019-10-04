@@ -54,7 +54,7 @@ public class SolutionSet {
 
       if (!elementsForXOR.contains(inputArray[i]) && (totalOccurrenceOfElement % 2 != 0)) {
         elementsForXOR.add(inputArray[i]);
-      } else {
+      } else if (elementsForXOR.contains(inputArray[i]) && (totalOccurrenceOfElement % 2 != 0)){
         elementsForXOR.remove(inputArray[i]);
       }
     }
