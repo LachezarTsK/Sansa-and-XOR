@@ -1,15 +1,12 @@
 import java.util.Scanner;
-import java.util.Set;
-import java.util.HashSet;
 
-public class SolutionSet {
+public class SolutionThree {
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     int numberOfTestCases = scanner.nextInt();
 
     while (numberOfTestCases-- > 0) {
-    
       int numberOfElements = scanner.nextInt();
       int[] inputArray = new int[numberOfElements + 1];
 
@@ -17,58 +14,46 @@ public class SolutionSet {
         inputArray[i] = scanner.nextInt();
       }
 
-      Set<Integer> elementsForXOR = findElementsForXOR(inputArray, numberOfElements);
-      int result = findXOR_on_elementsOfAllSubarrays(elementsForXOR);
+      int result = findXOR_on_elementsOfAllSubarrays(inputArray, numberOfElements);
       System.out.println(result);
     }
     scanner.close();
   }
 
   /**
-   * The method finds those elements, part of all contiguous subarrays, that have an influence
-   * on the result of the XOR operation.
+   * The method finds the XOR of the elements of all contiguous subarrays.
    *
-   * Since the XOR operation done on two integers with the same value returns '0', we need 
-   * to find those elements of the subarrays that have an odd total number of occurrence, 
-   * and record one representative of each. The elements that have an even total number 
-   * of occurrence will cancel out each other with the XOR operation, thus they will not change 
-   * the result of XOR operation.
+   * The XOR operation on two integers with the same value is '0'. 
+   * The expression for the total number of occurrence of an element 
+   * in the subarrays is:
    *
-   * @return A Set of integers for the XOR operation.
-   */
-  private static Set<Integer> findElementsForXOR(int[] inputArray, int numberOfElements) {
+   * position + (allArrayElements - position)*position 
+   * 'position' is the actual place in the array, not the index.
+   *
+   * There are four possible configurations:
+   * 1. 'allArrayElements' and 'position' are both even.
+   * 2. 'allArrayElements' is even, 'position' is odd.   
+   * 3. 'allArrayElements' is odd, and 'position' is even.
+   * 4. 'allArrayElements' and 'position' are both odd.
+   *
+   * Case 1, 2, and 3 result in an even number of total occurrence of an element.
+   * Case 4 results in an odd number of total occurrence of an element.
+   *
+   * Therefore, the method finds the XOR on all the elements in case 4.
+   * 
+   * @return An integer, representing the value of XOR as described above.
+   */ 
+  private static int findXOR_on_elementsOfAllSubarrays(int[] inputArray, int numberOfElements) {
 
-    /**
-     * The Set contains representatives of those elements that have an odd number of total occurence
-     * in the subarrays. The XOR operation will be done on those elements.
-     */
-    Set<Integer> elementsForXOR = new HashSet<Integer>();
-
-    for (int i = 1; i <= numberOfElements; i++) {
-    /**
-    * The total occurrence of an element in all contiguous subarrays is determined by the expression:
-    * (i + (numberOfElements - i) * i)
-    * where 'i' is actual position (not index) in the inputArray.
-    */
-      int totalOccurrenceOfElement = i + (numberOfElements - i) * i;
-
-      if (!elementsForXOR.contains(inputArray[i]) && (totalOccurrenceOfElement % 2 != 0)) {
-        elementsForXOR.add(inputArray[i]);
-      } else if (elementsForXOR.contains(inputArray[i]) && (totalOccurrenceOfElement % 2 != 0)){
-        elementsForXOR.remove(inputArray[i]);
-      }
-    }
-    return elementsForXOR;
-  }
-
-  /** 
-  * The method finds the XOR of those subarray elements that do not cancel out each other. 
-  */
-  private static int findXOR_on_elementsOfAllSubarrays(Set<Integer> elementsForXOR) {
     int result = 0;
-    for (Integer n : elementsForXOR) {
-      result = result ^ n;
+    if (numberOfElements % 2 == 0) {
+      return result;
     }
+
+    for (int i = 1; i <= numberOfElements; i = i + 2) {
+      result = result ^ inputArray[i];
+    }
+
     return result;
   }
 }
