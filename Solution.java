@@ -28,11 +28,11 @@ public class SolutionSet {
    * The method finds those elements, part of all contiguous subarrays, that have an influence
    * on the result of the XOR operation.
    *
-   * Since the XOR operation on two integers with the same value is '0', we need to find those
-   * elements of the subarrays that have an odd total number of occurrence, and record one
-   * representative of each. The elements that have an even total number of occurrence will 
-   * cancel out each other with the XOR operation, thus they will not change the result of 
-   * XOR operation.
+   * Since the XOR operation done on two integers with the same value returns '0', we need 
+   * to find those elements of the subarrays that have an odd total number of occurrence, 
+   * and record one representative of each. The elements that have an even total number 
+   * of occurrence will cancel out each other with the XOR operation, thus they will not change 
+   * the result of XOR operation.
    *
    * @return A Set of integers for the XOR operation.
    */
@@ -49,7 +49,7 @@ public class SolutionSet {
     * The total occurrence of an element in all contiguous subarrays
     * is determined by the expression:
     * (i + (numberOfElements - i) * i)
-    * where 'i' is actual position(not index) in inputArray.
+    * where 'i' is actual position(not index) in the inputArray.
     */
       int totalOccurrenceOfElement = i + (numberOfElements - i) * i;
 
@@ -62,7 +62,9 @@ public class SolutionSet {
     return elementsForXOR;
   }
 
-  /** The method finds the XOR of those subarray elements that do not cancel out each other. */
+  /** 
+  * The method finds the XOR of those subarray elements that do not cancel out each other. 
+  */
   private static int findXOR_on_elementsOfAllSubarrays(Set<Integer> elementsForXOR) {
     int result = 0;
     for (Integer n : elementsForXOR) {
