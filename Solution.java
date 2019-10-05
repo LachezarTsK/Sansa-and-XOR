@@ -50,8 +50,8 @@ public class SolutionThree {
       return result;
     }
 
-    for (int i = 1; i <= numberOfElements; i = i + 2) {
-      result = result ^ inputArray[i];
+    for (int i = 1; i <= numberOfElements; i +=2) {
+      result ^= inputArray[i];
     }
 
     return result;
